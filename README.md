@@ -105,7 +105,3 @@ The chat agent can use these tools based on user intent:
 - **update_student_info**: Update student fields (toeic, jlpt, university, etc.)
 - **get_student_info**: Get student profile
 - **ask_follow_up**: Request additional information when memo is incomplete
-
-## License
-
-MIT

@@ -3,7 +3,6 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 from app.core.database import engine, Base
 from app.api import students, teachers, meetings, chat
-from app.models import student, teacher, meeting
 
 
 app = FastAPI(
