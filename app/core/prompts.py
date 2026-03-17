@@ -25,7 +25,7 @@ Student information:
 - meeting_date: {meeting_date}
 
 Raw memo:
-{memo}
+{raw_memo}
 
 Return JSON in exactly this structure (output JSON only, output in Japanese):
 
@@ -46,7 +46,7 @@ def build_user_prompt(
         major: str,
         toeic: str,
         jlpt: str,
-        memo: str,
+        raw_memo: str,
         meeting_date: str,
 ) -> str:
     return USER_PROMPT_TEMPLATE.format(
@@ -56,6 +56,6 @@ def build_user_prompt(
         major=major,
         toeic=toeic,
         jlpt=jlpt,
-        memo=memo,
+        raw_memo=raw_memo,
         meeting_date=meeting_date,
     )

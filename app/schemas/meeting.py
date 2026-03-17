@@ -10,35 +10,10 @@ class MeetingInput(BaseModel):
 
     student_id: str = Field(
         description="student id",
-        examples=["id0001"]
+        examples=["sid0001"]
     )
 
-    student_name: str = Field(
-        description="student name",
-        examples=["藍天"]
-    )
-
-    university: str = Field(
-        description="university graduated",
-        examples=["東京科学大学"]
-    )
-
-    major: str = Field(
-        description="field of study",
-        examples=["情報通信系"]
-    )
-
-    toeic: str = Field(
-        description="TOEIC --> English",
-        examples=["845"]
-    )
-
-    jlpt: str = Field(
-        description="JlPT --> Japanese",
-        examples=["N1"]
-    )
-
-    memo: str = Field(
+    raw_memo: str = Field(
         description="raw --> memo; processed --> note",
         examples=["This is a memo, which you could completely write everything."
                   "You don't have to worry about whether the memo is structured."
@@ -85,18 +60,41 @@ class MeetingOutput(BaseModel):
         description="Check the student to make sure the mental health"
     )
 
-
-class Response(BaseModel):
-    """
-    To check if the response works.
-    """
-
-    report: Optional[MeetingOutput] = Field(
-        default=None,
-        description="output to report",
+    teacher_id: Optional[str] = Field(
+        default="",
+        description="teacher who is responsible for the student -> id"
     )
 
-    error: Optional[str] = Field(
-        default=None,
-        description="error infos, output null if success",
+    teacher_name: Optional[str] = Field(
+        default="",
+        description="teacher who is responsible for the student -> name"
     )
+
+
+class RecordResponse(BaseModel):
+    """
+    Return the output to the frontend.
+    """
+
+    student_id: str
+    student_name: str
+    meeting_date: str
+    events: str
+    process: str
+    suggestions: str
+    mental: str
+    raw_memo: str
+    teacher_id: str
+    teacher_name: str
+
+    id: str = Field(
+        description="The id of the report",
+        examples=["repo0001"]
+    )
+
+    pdf_path: Optional[str] = Field(
+        default=None,
+        description="The path of the pdf file",
+    )
+
+    model_config = {"from_attributes": True}

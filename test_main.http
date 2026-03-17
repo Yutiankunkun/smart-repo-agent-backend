@@ -1,11 +1,25 @@
-# Test your FastAPI endpoints
+# Test your FastAPI endpoints (server runs on port 8000)
 
-GET http://127.0.0.1:8000/
+GET http://127.0.0.1:8000/health
 Accept: application/json
 
 ###
 
-GET http://127.0.0.1:8000/hello/User
+GET http://127.0.0.1:8000/students/
 Accept: application/json
+
+###
+
+GET http://127.0.0.1:8000/teachers/
+Accept: application/json
+
+###
+
+POST http://127.0.0.1:8000/chat/
+Content-Type: application/json
+
+{
+  "message": "Get student info for sid0001"
+}
 
 ###

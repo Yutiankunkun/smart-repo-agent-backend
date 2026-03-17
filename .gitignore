@@ -25,10 +25,15 @@ build/
 *.egg
 
 # Test / debug
-.pytest_cache/
 .coverage
 htmlcov/
 debug-*.log
+
+# Database
+*.db
+
+# Generated files
+pdf_folder/
 
 # OS
 .DS_Store
