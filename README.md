@@ -92,7 +92,7 @@ pip install pdfkit
 
 ## Docker (full stack from repo root)
 
-The parent monorepo ships **Docker Compose** and **Nginx** so you can run the UI and API together (for example on **AWS EC2**). The public HTTP port is **8080**; Nginx serves the SPA and proxies `/api/*` to this service on port 8000 inside the network.
+The parent monorepo ships **Docker Compose** and **Nginx** so you can run the UI and API together (for example on **AWS EC2**). The public HTTP port is **80**; Nginx serves the SPA and proxies `/api/*` to this service on port 8000 inside the network.
 
 From the repository root (where `docker-compose.yml` lives):
 
@@ -103,7 +103,7 @@ From the repository root (where `docker-compose.yml` lives):
 docker compose up -d --build
 ```
 
-3. Open `http://<host>:8080`. API via the proxy: `http://<host>:8080/api/...`. FastAPI docs: `http://<host>:8080/docs`.
+3. Open `http://<host>`. API via the proxy: `http://<host>/api/...`. FastAPI docs: `http://<host>/docs`.
 
 SQLite data is stored in the Docker volume `backend_data` (path inside the container: `/app/data/report_agent_system_lantian.db`).
 
