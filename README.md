@@ -34,6 +34,7 @@ smart-repo-agent-backend/
 │   ├── services/       # LLM, PDF generation
 │   └── templates/      # Jinja2 templates
 ├── main.py
+├── Dockerfile
 └── requirements.txt
 ```
 
@@ -66,6 +67,12 @@ DASHSCOPE_API_KEY=your_api_key_here
 # DASHSCOPE_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
 ```
 
+Optional: override the SQLite location (defaults to `./report_agent_system_lantian.db` in the working directory):
+
+```env
+DATABASE_URL=sqlite:////absolute/path/to/your.db
+```
+
 ### Run the Server
 
 ```bash
@@ -81,6 +88,32 @@ To enable PDF report generation, install `pdfkit` and `wkhtmltopdf`:
 ```bash
 pip install pdfkit
 # Install wkhtmltopdf: https://wkhtmltopdf.org/downloads.html
+```
+
+## Docker (full stack from repo root)
+
+The parent monorepo ships **Docker Compose** and **Nginx** so you can run the UI and API together (for example on **AWS EC2**). The public HTTP port is **8080**; Nginx serves the SPA and proxies `/api/*` to this service on port 8000 inside the network.
+
+From the repository root (where `docker-compose.yml` lives):
+
+1. Ensure `smart-repo-agent-backend/.env` exists with at least `DASHSCOPE_API_KEY`.
+2. Build and start:
+
+```bash
+docker compose up -d --build
+```
+
+3. Open `http://<host>:8080`. API via the proxy: `http://<host>:8080/api/...`. FastAPI docs: `http://<host>:8080/docs`.
+
+SQLite data is stored in the Docker volume `backend_data` (path inside the container: `/app/data/report_agent_system_lantian.db`).
+
+**Backend image only** (no Nginx):
+
+```bash
+docker build -t smart-repo-agent-backend ./smart-repo-agent-backend
+docker run --rm -p 8000:8000 --env-file ./smart-repo-agent-backend/.env \
+  -e DATABASE_URL=sqlite:////app/data/report_agent_system_lantian.db \
+  -v smart_repo_data:/app/data smart-repo-agent-backend
 ```
 
 ## API Endpoints
